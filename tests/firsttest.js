@@ -8,7 +8,7 @@ module.exports={
         const text1='h1.c-heading'
         const searchBtn='#search'
         const inputSearch='#cli_shellHeaderSearchInput'
-        const nextBtn1='//span[contains(text(),"Next")]'
+        const nextBtn1='//span[contains(text(),"Siguiente")]'
         browser
         .url('https://www.microsoft.com/en-us/')
         browser.windowMaximize('current')
@@ -32,9 +32,9 @@ module.exports={
         .saveScreenshot('./reports/results.png')
         browser.useXpath()
         .click('//button[@id="search"]')
-        .waitForElementVisible('//button[@id="R1MarketRedirect-close"]')
+        .waitForElementVisible('//a[@id="R1MarketRedirect-submit"]')
         .saveScreenshot('./reports/warning.png')
-       .click('//button[@id="R1MarketRedirect-close"]')        
+       .click('//a[@id="R1MarketRedirect-submit"]')        
        .waitForElementVisible('//a[contains(text(),"Free IDE and Developer Tools | Visual Studio Commu")]', 1000)
         browser.elements('xpath', '//h3[@class="f-hyperlink"]', getInfo) 
       
@@ -52,12 +52,7 @@ module.exports={
 
         function getInfo(elements) {
       
-            if(elements.value.length==20){
-                console.log('Number of results: ' + elements.value.length);
-            }
-            else{
-                console.log('Number of results: ' + elements.value.length);
-            }
+            browser.expect.elements('//h3[@class="f-hyperlink"]').count.to.equal(20);
       
             elements.value.forEach(function (element) {
               browser.elementIdText(element.ELEMENT, function (res) {
